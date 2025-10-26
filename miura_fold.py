@@ -10,8 +10,8 @@ def parse_dim_str(s):
         raise ValueError("Invalid format: expected wxh")
     return float(parts[0]), float(parts[1])
 
-def generate_miura_svg(mm_w, mm_h, compact, folds_color, folds_dotted):
-    target_theta = 60  # Hardcoded; flexes internally via fitting
+def generate_miura_svg(mm_w, mm_h, compact, folds_color, folds_dotted, theta):
+    target_theta = theta  # User-specified; flexes internally via fitting
     px_w = mm_w * PX_PER_MM
     px_h = mm_h * PX_PER_MM
     svg = f'<svg width="{mm_w:.2f}mm" height="{mm_h:.2f}mm" viewBox="0 0 {px_w:.0f} {px_h:.0f}" xmlns="http://www.w3.org/2000/svg">\n'
@@ -30,6 +30,9 @@ def generate_miura_svg(mm_w, mm_h, compact, folds_color, folds_dotted):
     target_PF_mm = PSL_mm * math.sin(math.radians(target_theta))
     num_rows = round(LE_mm / target_PF_mm)
     PF_spacing_mm = LE_mm / num_rows
+    if PF_spacing_mm > PSL_mm:
+        num_rows += 1
+        PF_spacing_mm = LE_mm / num_rows
     theta_rad = math.asin(PF_spacing_mm / PSL_mm)
     theta_deg = math.degrees(theta_rad)
     offset_mm = math.cos(theta_rad) * PSL_mm
@@ -132,10 +135,14 @@ if __name__ == "__main__":
     parser.add_argument('--inches', type=str, help='Dimensions in inches: wxh')
     parser.add_argument('--px', type=str, default='816x1056', help='Dimensions in px: wxh (default: letter portrait at 96 DPI)')
     parser.add_argument('--compact', type=int, default=7, help='Compactness factor (default: 7)')
+    parser.add_argument('--theta', type=float, default=60, help='Target angle in degrees (60-80; default 60)')
     parser.add_argument('--folds-color', nargs=2, default=None, help='M/V colors as hex1 hex2 (e.g., #00FF00 #FF00FF)')
     parser.add_argument('--folds-dotted', action='store_true', help='Enable dotted lines for M/V (Morse for M, segment-dash for V; black if no colors)')
     parser.add_argument('--output', type=str, default='miura_fold.svg', help='Output SVG file (default: miura_fold.svg)')
     args = parser.parse_args()
+    
+    # Clamp theta to 60-80
+    args.theta = max(60, min(80, args.theta))
     
     folds_color = args.folds_color  # List of 2 or None
     
@@ -172,7 +179,7 @@ if __name__ == "__main__":
     
     mm_w, mm_h = dims[0][1], dims[0][2]
     
-    svg, theta_final = generate_miura_svg(mm_w, mm_h, args.compact, folds_color, args.folds_dotted)
+    svg, theta_final = generate_miura_svg(mm_w, mm_h, args.compact, folds_color, args.folds_dotted, args.theta)
     
     with open(args.output, 'w') as f:
         f.write(svg)
@@ -180,7 +187,7 @@ if __name__ == "__main__":
     print(f"Miura-ori pattern generated: {args.output}")
     print(f"Dimensions: {mm_w:.1f} x {mm_h:.1f} mm")
     print(f"Compactness: {args.compact}")
-    print(f"Final theta: {theta_final:.1f}° (target 60°)")
+    print(f"Final theta: {theta_final:.1f}° (target {args.theta}°)")
     if folds_color:
         print(f"Folds colors: M={folds_color[0]}, V={folds_color[1]}")
     if args.folds_dotted:
