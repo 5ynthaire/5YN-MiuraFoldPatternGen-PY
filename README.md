@@ -12,6 +12,8 @@ If you're new: Miura-ori is a rigid origami pattern of interlocking parallelogra
 
 ![sample](sample.png)
 
+*Note: Post-processed for presentation*
+
 ## Requirements
 
 - Python 3.6+
