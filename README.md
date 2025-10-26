@@ -41,9 +41,9 @@ If you're new: Miura-ori is a rigid origami pattern of interlocking parallelogra
 	
 **Notes**
 
- - Use tools like Inkscape for post-processing.*
+ - Use tools like Inkscape for post-processing.
 
- - Theta fitting: The --theta value sets a target for the parallelogram angle, but the script flexes it slightly to ensure an integer number of rows/columns fit the paper exactly. Check the console output for the "Final theta" (e.g., "78.5° (target 80°)"); this adjusted angle maintains the pattern's integrity without gaps or overflows.
+ - Theta fitting: The `--theta` value sets a target for the parallelogram angle, but the script flexes it slightly to ensure an integer number of rows/columns fit the paper exactly. Check the console output for the "Final theta" (e.g., "78.5° (target 80°)"); this adjusted angle maintains the pattern's integrity without gaps or overflows.
 
 ## Code
 
