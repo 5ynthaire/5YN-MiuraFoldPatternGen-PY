@@ -28,12 +28,15 @@ If you're new: Miura-ori is a rigid origami pattern of interlocking parallelogra
 ## Usage
 
 **Default generation (letter size, compactness 7, black lines):**
+
 `python miura_fold.py`
 
 *Outputs: `miura_fold.svg`.*
 
 **Custom example (300mm x 400mm, compactness 5, green/magenta dotted folds):**
+
 `python miura_fold.py --compact 5` --mm 300x400 --folds-color #00FF00 #FF00FF --folds-dotted --output custom.svg`
+	
 *Note: Use tools like Inkscape for post-processing.*
 
 ## Code
