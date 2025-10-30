@@ -1,5 +1,8 @@
 # Python Script: Miura Fold Pattern SVG Generator
 
+## Standalone Binary (No Python Required)
+[![Latest Release](https://img.shields.io/github/v/release/5ynthaire/5YN-MiuraFoldPatternGen-PY?label=Download%20App)](https://github.com/5ynthaire/5YN-MiuraFoldPatternGen-PY/releases/latest)
+
 ## Purpose
 
 This Python script generates a Miura-ori crease pattern in SVG format for printing or further editing. It automatically fits the pattern to user-specified paper dimensions and a compactness factor, handling rhombus sizing and angles without manual calculations.
@@ -16,7 +19,11 @@ If you're new: Miura-ori is a rigid origami pattern of interlocking parallelogra
 
 ## Requirements
 
+**Python Script**
 - Python 3.6+
+
+[**Windows Binary**](https://github.com/5ynthaire/5YN-MiuraFoldPatternGen-PY/releases/latest)
+- Windows
 
 ## Commandline Switches
 
